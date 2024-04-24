@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.github.williamdlm</groupId>
-	<artifactId>ms-cards</artifactId>
+	<artifactId>ms-card</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>ms-cards</name>
 	<description>Microservice cards</description>

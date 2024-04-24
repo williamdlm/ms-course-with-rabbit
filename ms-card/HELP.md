@@ -1,7 +1,7 @@
 # Read Me First
 The following was discovered as part of building this project:
 
-* The original package name 'com.github.williamdlm.ms-cards' is invalid and this project uses 'com.github.williamdlm.mscards' instead.
+* The original package name 'com.github.williamdlm.ms-cards' is invalid and this project uses 'com.github.williamdlm.mscard' instead.
 
 # Getting Started
 

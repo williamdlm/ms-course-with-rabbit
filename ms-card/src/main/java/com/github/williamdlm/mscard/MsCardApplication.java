@@ -1,13 +1,13 @@
-package com.github.williamdlm.mscards;
+package com.github.williamdlm.mscard;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class MsCardsApplication {
+public class MsCardApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(MsCardsApplication.class, args);
+		SpringApplication.run(MsCardApplication.class, args);
 	}
 
 }
