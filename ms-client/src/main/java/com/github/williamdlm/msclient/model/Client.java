@@ -17,10 +17,12 @@ public class Client {
     private Long id;
     private String name;
     private String idDocument;
+    private Integer age;
 
-    public Client(String name, String idDocument){
+    public Client(String name, String idDocument, Integer age){
         this.name = name;
         this.idDocument = idDocument;
+        this.age = age;
     }
 
 
