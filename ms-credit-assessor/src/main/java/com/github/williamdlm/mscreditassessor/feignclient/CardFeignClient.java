@@ -1,5 +1,6 @@
 package com.github.williamdlm.mscreditassessor.feignclient;
 
+import com.github.williamdlm.mscreditassessor.pojo.Card;
 import com.github.williamdlm.mscreditassessor.pojo.ClientCard;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
@@ -15,4 +16,7 @@ public interface CardFeignClient {
 
     @GetMapping(params = "document")
     public ResponseEntity<List<ClientCard>> findByDocument(@RequestParam("document") String document);
+
+    @GetMapping(params = "income")
+    public ResponseEntity<List<Card>> findByIncomeLessThanEqual(@RequestParam("income") Long income);
 }

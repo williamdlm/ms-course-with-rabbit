@@ -2,15 +2,14 @@ package com.github.williamdlm.mscreditassessor.controller;
 
 import com.github.williamdlm.mscreditassessor.exception.ClientDataNotFoundException;
 import com.github.williamdlm.mscreditassessor.exception.ErrorComunicationWebserviceException;
+import com.github.williamdlm.mscreditassessor.pojo.EvaluateData;
 import com.github.williamdlm.mscreditassessor.pojo.ClientStatus;
+import com.github.williamdlm.mscreditassessor.pojo.ResponseEvaluateCredit;
 import com.github.williamdlm.mscreditassessor.service.CreditAssessorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("assessors")
@@ -33,5 +32,18 @@ public class CreditAssessorController {
         }catch (ErrorComunicationWebserviceException e){
             return ResponseEntity.status(HttpStatus.resolve(e.getStatus())).body(e.getMessage());
         }
+    }
+
+    @PostMapping
+    public ResponseEntity evaluateCredit(@RequestBody EvaluateData data){
+        try {
+            ResponseEvaluateCredit resultEvaluate = creditAssessorService.evaluateCredit(data.getDocument(), data.getIncome());
+            return ResponseEntity.ok(resultEvaluate);
+        }catch (ClientDataNotFoundException e){
+            return ResponseEntity.notFound().build();
+        }catch (ErrorComunicationWebserviceException e){
+            return ResponseEntity.status(HttpStatus.resolve(e.getStatus())).body(e.getMessage());
+        }
+
     }
 }
