@@ -43,7 +43,7 @@ public class ClientController {
     }
 
     @GetMapping(params = "document")
-    ResponseEntity<Client> findByDocument(@RequestParam String document ) throws Exception {
+    ResponseEntity findByDocument(@RequestParam String document ) throws Exception {
         Client client = this.clientService.findClientByDocument(document);
         return ResponseEntity.ok(client);
     }

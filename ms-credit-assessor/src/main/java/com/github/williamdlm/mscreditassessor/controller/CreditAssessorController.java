@@ -1,6 +1,6 @@
 package com.github.williamdlm.mscreditassessor.controller;
 
-import com.github.williamdlm.mscreditassessor.model.ClientStatus;
+import com.github.williamdlm.mscreditassessor.pojo.ClientStatus;
 import com.github.williamdlm.mscreditassessor.service.CreditAssessorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +22,7 @@ public class CreditAssessorController {
 
     @GetMapping(value = "/client-status", params = "document")
     public ResponseEntity<ClientStatus> clientStatusQuery(@RequestParam("document") String document) {
-        ClientStatus clientStatus = CreditAssessorService.getClientStatus(document);
+        ClientStatus clientStatus = creditAssessorService.getClientStatus(document);
         return ResponseEntity.ok(clientStatus);
     }
 }

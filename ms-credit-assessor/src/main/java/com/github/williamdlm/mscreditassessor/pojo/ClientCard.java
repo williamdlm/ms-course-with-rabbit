@@ -1,4 +1,4 @@
-package com.github.williamdlm.mscreditassessor.model;
+package com.github.williamdlm.mscreditassessor.pojo;
 
 import lombok.Data;
 
