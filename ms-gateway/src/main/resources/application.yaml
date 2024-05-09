@@ -18,6 +18,10 @@ spring:
           uri: lb://ms-card
           predicates:
             - Path=/ms-card/cards/**
+        - id: ms-credit-assessor
+          uri: lb://ms-credit-assessor
+          predicates:
+            - Path=/ms-credit-assessor/assessors/**
 eureka:
   instance:
     instanceId: ${spring.application.name}:${spring.application.instance_id:${random.value}}

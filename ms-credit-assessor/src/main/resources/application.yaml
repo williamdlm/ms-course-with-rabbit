@@ -1,0 +1,12 @@
+server:
+    port: 0
+spring:
+  application:
+    name: ms-credit-assessor
+eureka:
+  instance:
+    hostname: localhost
+    instanceId: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
