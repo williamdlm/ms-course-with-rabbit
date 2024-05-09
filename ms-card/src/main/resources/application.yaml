@@ -3,6 +3,11 @@ server:
 spring:
   application:
     name: ms-card
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
   datasource:
     url: jdbc:h2:mem:mydb
     username: sa
@@ -17,3 +22,6 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/
+mq:
+  queues:
+    card-issuance: card-issuance
