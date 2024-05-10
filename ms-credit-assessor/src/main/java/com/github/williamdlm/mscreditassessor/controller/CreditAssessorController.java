@@ -2,9 +2,7 @@ package com.github.williamdlm.mscreditassessor.controller;
 
 import com.github.williamdlm.mscreditassessor.exception.ClientDataNotFoundException;
 import com.github.williamdlm.mscreditassessor.exception.ErrorComunicationWebserviceException;
-import com.github.williamdlm.mscreditassessor.pojo.EvaluateData;
-import com.github.williamdlm.mscreditassessor.pojo.ClientStatus;
-import com.github.williamdlm.mscreditassessor.pojo.ResponseEvaluateCredit;
+import com.github.williamdlm.mscreditassessor.pojo.*;
 import com.github.williamdlm.mscreditassessor.service.CreditAssessorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -23,27 +21,37 @@ public class CreditAssessorController {
     }
 
     @GetMapping(value = "/client-status", params = "document")
-    public ResponseEntity clientStatusQuery(@RequestParam("document") String document) throws Exception, ErrorComunicationWebserviceException {
+    public ResponseEntity clientStatusQuery(@RequestParam("document") String document) throws Exception {
         try {
-        ClientStatus clientStatus = creditAssessorService.getClientStatus(document);
-        return ResponseEntity.ok(clientStatus);
-        }catch (ClientDataNotFoundException e){
+            ClientStatus clientStatus = creditAssessorService.getClientStatus(document);
+            return ResponseEntity.ok(clientStatus);
+        } catch (ClientDataNotFoundException e) {
             return ResponseEntity.notFound().build();
-        }catch (ErrorComunicationWebserviceException e){
+        } catch (ErrorComunicationWebserviceException e) {
             return ResponseEntity.status(HttpStatus.resolve(e.getStatus())).body(e.getMessage());
         }
     }
 
     @PostMapping
-    public ResponseEntity evaluateCredit(@RequestBody EvaluateData data){
+    public ResponseEntity evaluateCredit(@RequestBody EvaluateData data) {
         try {
             ResponseEvaluateCredit resultEvaluate = creditAssessorService.evaluateCredit(data.getDocument(), data.getIncome());
             return ResponseEntity.ok(resultEvaluate);
-        }catch (ClientDataNotFoundException e){
+        } catch (ClientDataNotFoundException e) {
             return ResponseEntity.notFound().build();
-        }catch (ErrorComunicationWebserviceException e){
+        } catch (ErrorComunicationWebserviceException e) {
             return ResponseEntity.status(HttpStatus.resolve(e.getStatus())).body(e.getMessage());
         }
 
+    }
+
+    @PostMapping("/issuance-cards")
+    public ResponseEntity issuanceCardReq(@RequestBody RequestIssuanceCardData data) {
+        try {
+            RequestProtocolCard requestProtocolCard = creditAssessorService.requestIssuanceCard(data);
+            return ResponseEntity.ok(requestProtocolCard);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        }
     }
 }

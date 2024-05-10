@@ -4,6 +4,7 @@ import com.github.williamdlm.mscreditassessor.exception.ClientDataNotFoundExcept
 import com.github.williamdlm.mscreditassessor.exception.ErrorComunicationWebserviceException;
 import com.github.williamdlm.mscreditassessor.feignclient.CardFeignClient;
 import com.github.williamdlm.mscreditassessor.feignclient.ClientFeignClient;
+import com.github.williamdlm.mscreditassessor.mqueues.IssuanceCardPublisher;
 import com.github.williamdlm.mscreditassessor.pojo.*;
 import feign.FeignException;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -21,6 +23,7 @@ public class CreditAssessorService {
 
     private final ClientFeignClient clientFeignClient;
     private final CardFeignClient cardFeignClient;
+    private final IssuanceCardPublisher issuanceCardPublisher;
 
     public ClientStatus getClientStatus(String document) throws ClientDataNotFoundException, ErrorComunicationWebserviceException {
         try {
@@ -71,6 +74,16 @@ public class CreditAssessorService {
                 throw new ClientDataNotFoundException();
             }
             throw new ErrorComunicationWebserviceException(e.getMessage(), status);
+        }
+    }
+
+    public RequestProtocolCard requestIssuanceCard(RequestIssuanceCardData reqIssuanceCardData) throws Exception {
+        try {
+         issuanceCardPublisher.issuanceCard(reqIssuanceCardData);
+         var protocol = UUID.randomUUID().toString();
+        return new RequestProtocolCard(protocol);
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
         }
     }
 }

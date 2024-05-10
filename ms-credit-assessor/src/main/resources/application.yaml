@@ -3,6 +3,11 @@ server:
 spring:
   application:
     name: ms-credit-assessor
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
 eureka:
   instance:
     hostname: localhost
@@ -10,3 +15,6 @@ eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka
+mq:
+  queues:
+    card-issuance: card-issuance
